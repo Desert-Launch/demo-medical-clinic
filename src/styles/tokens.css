@@ -1,0 +1,209 @@
+/* =============================================================================
+   Andalus Medical Center — design tokens
+   -----------------------------------------------------------------------------
+   Single source of truth for colour, type, space, radii, shadow and motion.
+   Nothing downstream may hardcode a hex; components reference these variables
+   or the Tailwind utilities mapped from them in app/globals.css.
+
+   Direction: "the courtyard clinic."
+     - Lapis, the deep blue of Andalusian zellige, is the controlled primary.
+       Trust without the teal every clinic site reaches for.
+     - Limestone neutrals carry a faint warm cast — sunlit stone, not cream.
+     - Saffron is the single accent, rationed: ratings, next-available, the one
+       highlighted slot. Never a background.
+     - Geometry comes from the horseshoe arch and the eight-point khatim star.
+   ========================================================================== */
+
+:root {
+  /* --- Lapis: the brand ---------------------------------------------------
+     A blue with a slight violet lean, so it reads considered rather than
+     default-corporate. 700 is the interactive primary; 950 the dark canvas. */
+  --lapis-50: oklch(0.972 0.012 262);
+  --lapis-100: oklch(0.941 0.028 262);
+  --lapis-200: oklch(0.888 0.052 262);
+  --lapis-300: oklch(0.812 0.082 263);
+  --lapis-400: oklch(0.708 0.114 264);
+  --lapis-500: oklch(0.606 0.144 265);
+  --lapis-600: oklch(0.514 0.153 266);
+  --lapis-700: oklch(0.436 0.14 267);
+  --lapis-800: oklch(0.362 0.115 268);
+  --lapis-900: oklch(0.298 0.088 268);
+  --lapis-950: oklch(0.214 0.062 269);
+
+  /* --- Saffron: the rationed accent -------------------------------------- */
+  --saffron-50: oklch(0.978 0.024 88);
+  --saffron-100: oklch(0.952 0.05 88);
+  --saffron-200: oklch(0.912 0.084 86);
+  --saffron-300: oklch(0.862 0.112 84);
+  --saffron-400: oklch(0.812 0.134 80);
+  --saffron-500: oklch(0.762 0.144 74);
+  --saffron-600: oklch(0.672 0.134 66);
+  --saffron-700: oklch(0.552 0.116 62);
+
+  /* --- Limestone: neutrals with a faint warm cast ------------------------- */
+  --stone-0: oklch(1 0 0);
+  --stone-25: oklch(0.99 0.003 80);
+  --stone-50: oklch(0.979 0.005 82);
+  --stone-100: oklch(0.961 0.007 82);
+  --stone-200: oklch(0.927 0.008 83);
+  --stone-300: oklch(0.877 0.009 84);
+  --stone-400: oklch(0.744 0.011 85);
+  --stone-500: oklch(0.614 0.012 86);
+  --stone-600: oklch(0.507 0.013 88);
+  --stone-700: oklch(0.411 0.013 90);
+  --stone-800: oklch(0.317 0.012 92);
+  --stone-900: oklch(0.247 0.011 94);
+  --stone-950: oklch(0.177 0.01 96);
+
+  /* --- Status ------------------------------------------------------------ */
+  --success-50: oklch(0.962 0.028 158);
+  --success-100: oklch(0.918 0.062 158);
+  --success-500: oklch(0.628 0.128 158);
+  --success-700: oklch(0.472 0.106 159);
+
+  --warning-50: oklch(0.968 0.032 80);
+  --warning-100: oklch(0.93 0.068 80);
+  --warning-500: oklch(0.758 0.128 72);
+  --warning-700: oklch(0.548 0.112 58);
+
+  --danger-50: oklch(0.964 0.018 22);
+  --danger-100: oklch(0.923 0.044 22);
+  --danger-500: oklch(0.628 0.188 24);
+  --danger-700: oklch(0.502 0.168 25);
+
+  --info-50: oklch(0.965 0.02 250);
+  --info-100: oklch(0.925 0.045 250);
+  --info-500: oklch(0.62 0.13 252);
+  --info-700: oklch(0.485 0.13 254);
+
+  /* --- Semantic surfaces (also the shadcn contract) ---------------------- */
+  --background: var(--stone-50);
+  --foreground: var(--stone-900);
+
+  --surface: var(--stone-0);
+  --surface-muted: var(--stone-100);
+  --surface-sunken: var(--stone-200);
+  --surface-brand: var(--lapis-950);
+  --surface-brand-soft: var(--lapis-50);
+
+  --card: var(--stone-0);
+  --card-foreground: var(--stone-900);
+  --popover: var(--stone-0);
+  --popover-foreground: var(--stone-900);
+
+  --primary: var(--lapis-700);
+  --primary-foreground: var(--stone-0);
+  --primary-hover: var(--lapis-800);
+
+  --secondary: var(--lapis-50);
+  --secondary-foreground: var(--lapis-800);
+
+  --muted: var(--stone-100);
+  --muted-foreground: var(--stone-600);
+
+  --accent: var(--lapis-100);
+  --accent-foreground: var(--lapis-900);
+
+  --highlight: var(--saffron-400);
+  --highlight-foreground: var(--stone-950);
+  --highlight-soft: var(--saffron-100);
+
+  --destructive: var(--danger-700);
+  --destructive-foreground: var(--stone-0);
+
+  --border: var(--stone-200);
+  --border-strong: var(--stone-300);
+  --input: var(--stone-300);
+  --ring: var(--lapis-500);
+
+  /* --- Chart series (recharts) -------------------------------------------
+     A lapis ramp with one saffron, so a six-department chart reads as one
+     system rather than a rainbow. Steps are far enough apart to stay legible
+     side by side. */
+  --chart-1: var(--lapis-700);
+  --chart-2: var(--lapis-400);
+  --chart-3: var(--saffron-400);
+  --chart-4: var(--lapis-900);
+  --chart-5: var(--lapis-200);
+  --chart-6: var(--lapis-500);
+
+  /* --- Radii -------------------------------------------------------------
+     `--radius` is the shadcn base. `--radius-arch` is the signature: a
+     horseshoe-arch panel, square-footed and round-shouldered. */
+  --radius: 0.75rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  --radius-arch: 14rem 14rem var(--radius-lg) var(--radius-lg);
+  --radius-arch-sm: 7rem 7rem var(--radius-md) var(--radius-md);
+
+  /* --- Shadows: limestone-tinted, never black ---------------------------- */
+  --shadow-xs: 0 1px 2px oklch(0.247 0.011 94 / 0.05);
+  --shadow-sm: 0 1px 3px oklch(0.247 0.011 94 / 0.07), 0 1px 2px oklch(0.247 0.011 94 / 0.04);
+  --shadow-md: 0 4px 12px oklch(0.247 0.011 94 / 0.07), 0 2px 4px oklch(0.247 0.011 94 / 0.04);
+  --shadow-lg: 0 12px 28px oklch(0.247 0.011 94 / 0.09), 0 4px 10px oklch(0.247 0.011 94 / 0.05);
+  --shadow-xl: 0 24px 56px oklch(0.247 0.011 94 / 0.12), 0 8px 18px oklch(0.247 0.011 94 / 0.06);
+  --shadow-ring: 0 0 0 1px var(--border);
+
+  /* --- Spacing rhythm ----------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* --- Type scale --------------------------------------------------------
+     Display sizes are set tight and slightly negative-tracked; body copy runs
+     looser for the long patient-facing paragraphs. */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tight: -0.022em;
+  --tracking-snug: -0.012em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-caps: 0.12em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* --- Motion -------------------------------------------------------------
+     Short, eased, and few. Section 6 of the brief: reveal, wizard step, list. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 380ms;
+
+  /* --- Layout ------------------------------------------------------------ */
+  --container-max: 76rem;
+  --container-wide: 88rem;
+  --header-height: 4.5rem;
+}
