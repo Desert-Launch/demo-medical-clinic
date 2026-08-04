@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Andalus Medical Center
 
-## Getting Started
+A frontend-only demo of a multi-specialty outpatient clinic in Abu Dhabi: a
+public marketing site, a five-step booking flow, and a staff dashboard with full
+CRUD over appointments and patients.
 
-First, run the development server:
+Everything is fictional — the clinic, the doctors, the patients and the
+insurers. There is no backend, no database and no auth server.
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Script              | What it does                 |
+| ------------------- | ---------------------------- |
+| `npm run build`     | Production build (Turbopack) |
+| `npm run start`     | Serve the production build   |
+| `npm run lint`      | ESLint over the whole repo   |
+| `npm run typecheck` | `tsc --noEmit`, strict mode  |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`lint` and `typecheck` both pass clean.
 
-## Learn More
+## Where the data lives
 
-To learn more about Next.js, take a look at the following resources:
+`src/lib/store/` is the demo's "backend": a module-level singleton holding every
+specialty, doctor, patient and appointment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `seed.ts` builds the dataset — 6 specialties, 12 doctors, 30 patients and
+  around 50 appointments spread across the past and next two weeks. Appointment
+  times are derived from each doctor's real shift pattern, so no two bookings
+  ever collide.
+- `db.ts` is the whole read/write surface: filtered lists, joins, slot
+  availability, CRUD, and the dashboard aggregates.
+- `index.ts` is the only entry point anything outside `lib/store` may import.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Writes persist **for the browser session only**. A hard refresh re-seeds, because
+the store is plain module state — no `localStorage`, no network.
 
-## Deploy on Vercel
+### Resetting the demo data
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Bottom of the admin sidebar → **Reset demo data**. It puts the store back to its
+seeded state and drops every cached query. Refreshing the page does the same
+thing.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+
+The app is feature-sliced and the dependencies run one way only:
+
+```
+app/  →  features/  →  lib/store
+             ↓
+        components/
+```
+
+`app/` holds routes and nothing else — no business logic. Each folder under
+`features/` owns one domain and exposes it through an `index.ts` barrel:
+`schema.ts` (zod, with the TypeScript types inferred from it), `api.ts` (async
+functions over the store, each with a small deliberate latency so loading and
+skeleton states are real), `hooks/` (TanStack Query wrappers) and `components/`.
+UI never reaches into the store directly — it goes through a hook, which calls
+`api.ts`, which calls the store. Mutations invalidate query keys, so a booking
+taken on the public site shows up in the dashboard without a refresh.
+
+Cross-cutting client state (the "signed-in" staff member) lives in a small
+Zustand store at `src/lib/state/session-store.ts`. Design values live as CSS
+variables in `src/styles/tokens.css` and are mapped into the Tailwind theme in
+`src/app/globals.css`; no component hardcodes a colour.
+
+## Things worth demoing
+
+- **`/book`** — the five-step wizard. Booked slots are struck through and
+  derived live from the store; "first available" resolves across the whole
+  department. Deep links work: `/book?specialty=cardiology`,
+  `/book?doctor=doc_alshamsi`.
+- **`/admin/appointments`** — filter by status, department, doctor, date range
+  or free text; create, reschedule, reassign, change status, delete. Cancelling
+  updates the table immediately and **fails roughly one attempt in ten on
+  purpose**, so the optimistic rollback and its error toast are demonstrable.
+- **`/admin/patients`** — click a row for the record drawer: allergies and notes
+  are editable and persist, with the full visit history underneath.
+- Book something on the public site, then open the dashboard from the
+  confirmation screen — it is already there.
