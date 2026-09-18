@@ -91,7 +91,7 @@ export function AdminSidebarContent({
 export function AdminSidebar() {
   return (
     <aside className="hidden w-64 shrink-0 lg:block">
-      <div className="fixed inset-y-0 left-0 w-64">
+      <div className="sticky top-0 h-dvh">
         <AdminSidebarContent />
       </div>
     </aside>
