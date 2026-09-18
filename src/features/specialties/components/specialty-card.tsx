@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
 import { specialtyIcon } from "@/features/specialties/components/specialty-icon";
+import { specialtyScene } from "@/lib/images";
 import { formatAED } from "@/lib/utils";
 import type { Specialty } from "@/types";
 
@@ -10,13 +12,19 @@ export function SpecialtyCard({ specialty }: { specialty: Specialty }) {
   const Icon = specialtyIcon(specialty.icon);
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-xs transition-shadow hover:shadow-md">
+    <article className="lift group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-xs">
       <div className="relative px-5 pt-5">
-        <GradientArt
-          variant={specialty.art}
-          className="arch-sm h-36 w-full"
-        />
-        <span className="absolute bottom-4 left-9 flex size-11 items-center justify-center rounded-full bg-stone-0 text-lapis-700 shadow-sm">
+        <GradientArt variant={specialty.art} className="arch-sm h-36 w-full">
+          {/* Held at partial opacity and multiplied into the department's own
+              gradient, so six cards stay distinguishable even where the source
+              photograph repeats. */}
+          <Photo
+            src={specialtyScene(specialty.slug)}
+            sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+            className="lift-media opacity-45 mix-blend-luminosity"
+          />
+        </GradientArt>
+        <span className="absolute bottom-4 left-9 flex size-11 items-center justify-center rounded-full bg-stone-0 text-lapis-700 shadow-sm transition-colors duration-200 group-hover:bg-lapis-700 group-hover:text-stone-0">
           <Icon aria-hidden="true" className="size-5" />
         </span>
       </div>

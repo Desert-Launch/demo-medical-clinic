@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { transitions } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData> {
@@ -164,8 +165,11 @@ export function DataTable<TData>({
                   layout={reduceMotion ? false : "position"}
                   initial={reduceMotion ? false : { opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
-                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  // Fades rather than collapsing: animating `height` on a row
+                  // forces layout every frame, and `layout="position"` already
+                  // slides the rows below into the gap.
+                  exit={reduceMotion ? undefined : { opacity: 0 }}
+                  transition={transitions.ui}
                   onClick={
                     onRowClick ? () => onRowClick(row.original) : undefined
                   }

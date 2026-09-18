@@ -23,6 +23,7 @@ import {
 } from "@/features/booking";
 import { useDoctors } from "@/features/doctors";
 import { useSpecialties } from "@/features/specialties";
+import { stepVariants } from "@/lib/motion";
 import type { AppointmentWithRelations, Specialty } from "@/types";
 
 export function BookingWizard() {
@@ -30,11 +31,20 @@ export function BookingWizard() {
   const reduceMotion = useReducedMotion();
 
   const [step, setStep] = useState(1);
+  // Which way the flow is travelling, so a step entered by "Back" slides in
+  // from the side it left towards. Getting this wrong is the thing that makes
+  // a wizard feel like four unrelated pages.
+  const [forward, setForward] = useState(true);
   const [draft, setDraft] = useState<BookingDraft>(emptyBookingDraft);
   const [result, setResult] = useState<{
     appointment: AppointmentWithRelations;
     isNewPatient: boolean;
   } | null>(null);
+
+  function goToStep(next: number) {
+    setForward(next >= step);
+    setStep(next);
+  }
 
   const { data: specialties } = useSpecialties();
   const { data: doctors } = useDoctors();
@@ -132,34 +142,32 @@ export function BookingWizard() {
       {
         onSuccess: (booking) => {
           setResult(booking);
+          setForward(true);
           setStep(5);
         },
       },
     );
   }
 
-  const transition = reduceMotion
-    ? { duration: 0 }
-    : { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const };
-
   return (
     <PageContainer className="py-10 sm:py-14">
       <div className="mx-auto max-w-2xl lg:max-w-none">
         <WizardStepper
           current={step}
-          onStepSelect={step < 5 ? setStep : undefined}
+          onStepSelect={step < 5 ? goToStep : undefined}
         />
       </div>
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
         <div className="min-w-0">
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="wait" initial={false} custom={forward}>
             <motion.div
               key={step}
-              initial={reduceMotion ? false : { opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, x: -24 }}
-              transition={transition}
+              custom={forward}
+              variants={stepVariants()}
+              initial={reduceMotion ? false : "enter"}
+              animate="center"
+              exit={reduceMotion ? undefined : "exit"}
             >
               {step === 1 ? (
                 <StepCare
@@ -206,7 +214,7 @@ export function BookingWizard() {
               {step === 4 ? (
                 <StepDetails
                   defaultValues={draft.details}
-                  onBack={() => setStep(3)}
+                  onBack={() => goToStep(3)}
                   onSubmit={submitBooking}
                   pending={submit.isPending}
                 />
@@ -219,7 +227,7 @@ export function BookingWizard() {
                   onBookAnother={() => {
                     setDraft(emptyBookingDraft);
                     setResult(null);
-                    setStep(1);
+                    goToStep(1);
                   }}
                 />
               ) : null}
@@ -232,7 +240,7 @@ export function BookingWizard() {
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={() => setStep((current) => current - 1)}
+                  onClick={() => goToStep(step - 1)}
                 >
                   Back
                 </Button>
@@ -240,7 +248,7 @@ export function BookingWizard() {
               <Button
                 size="lg"
                 disabled={!canContinue}
-                onClick={() => setStep((current) => current + 1)}
+                onClick={() => goToStep(step + 1)}
               >
                 Continue
               </Button>

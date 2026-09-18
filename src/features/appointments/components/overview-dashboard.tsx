@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { EmptyState } from "@/components/shared/empty-state";
+import { Reveal, RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { StatCard } from "@/components/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -62,36 +63,48 @@ export function OverviewDashboard() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          label="Today’s appointments"
-          value={String(data.todayCount)}
-          detail={`${data.todayRemaining} still to come`}
-          icon={CalendarCheck}
-          tone="brand"
-        />
-        <StatCard
-          label="Upcoming"
-          value={String(data.upcomingCount)}
-          detail="Scheduled or confirmed"
-          icon={CalendarClock}
-        />
-        <StatCard
-          label="No-show rate"
-          value={formatPercent(data.noShowRate)}
-          detail="Last 30 days"
-          icon={CircleAlert}
-          tone={data.noShowRate > 10 ? "warning" : "default"}
-        />
-        <StatCard
-          label="Billed this month"
-          value={formatAED(data.monthRevenueAED)}
-          detail={`${data.monthCompleted} completed visits`}
-          icon={Wallet}
-        />
-      </div>
+      <RevealGroup className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <RevealItem className="h-full">
+          <StatCard
+            label="Today’s appointments"
+            value={String(data.todayCount)}
+            detail={`${data.todayRemaining} still to come`}
+            icon={CalendarCheck}
+            tone="brand"
+            className="h-full"
+          />
+        </RevealItem>
+        <RevealItem className="h-full">
+          <StatCard
+            label="Upcoming"
+            value={String(data.upcomingCount)}
+            detail="Scheduled or confirmed"
+            icon={CalendarClock}
+            className="h-full"
+          />
+        </RevealItem>
+        <RevealItem className="h-full">
+          <StatCard
+            label="No-show rate"
+            value={formatPercent(data.noShowRate)}
+            detail="Last 30 days"
+            icon={CircleAlert}
+            tone={data.noShowRate > 10 ? "warning" : "default"}
+            className="h-full"
+          />
+        </RevealItem>
+        <RevealItem className="h-full">
+          <StatCard
+            label="Billed this month"
+            value={formatAED(data.monthRevenueAED)}
+            detail={`${data.monthCompleted} completed visits`}
+            icon={Wallet}
+            className="h-full"
+          />
+        </RevealItem>
+      </RevealGroup>
 
-      <div className="grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-start">
+      <Reveal className="grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-start">
         <section className="rounded-xl border border-border bg-surface p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <div>
@@ -126,7 +139,7 @@ export function OverviewDashboard() {
             />
           </div>
         </section>
-      </div>
+      </Reveal>
 
       <section className="rounded-xl border border-border bg-surface p-6">
         <h3 className="text-lg">Next up</h3>

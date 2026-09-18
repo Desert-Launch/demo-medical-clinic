@@ -3,6 +3,7 @@
 import { CircleAlert } from "lucide-react";
 
 import { EmptyState } from "@/components/shared/empty-state";
+import { RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SpecialtyCard } from "@/features/specialties/components/specialty-card";
 import { useSpecialties } from "@/features/specialties";
@@ -33,10 +34,12 @@ export function SpecialtyGrid({ limit }: { limit?: number }) {
   const specialties = limit ? data.slice(0, limit) : data;
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {specialties.map((specialty) => (
-        <SpecialtyCard key={specialty.id} specialty={specialty} />
+        <RevealItem key={specialty.id} className="h-full">
+          <SpecialtyCard specialty={specialty} />
+        </RevealItem>
       ))}
-    </div>
+    </RevealGroup>
   );
 }

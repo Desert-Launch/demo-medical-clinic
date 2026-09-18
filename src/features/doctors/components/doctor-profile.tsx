@@ -6,6 +6,7 @@ import { ArrowLeft, BadgeCheck, CalendarDays, Languages } from "lucide-react";
 
 import { PageContainer } from "@/components/layout/page-container";
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
 import { Reveal } from "@/components/shared/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { NextAvailable } from "@/features/doctors/components/next-available";
 import { useDoctor } from "@/features/doctors";
 import { useSpecialties } from "@/features/specialties";
+import { doctorPortrait } from "@/lib/images";
 import { weekdayLabels } from "@/lib/scheduling";
 import { formatAED, initials } from "@/lib/utils";
 
@@ -50,11 +52,18 @@ export function DoctorProfile({ doctorId }: { doctorId: string }) {
         <div>
           <GradientArt
             variant={doctor.portrait}
-            className="arch flex h-80 w-full items-center justify-center"
+            className="arch flex h-80 w-full max-w-80 items-center justify-center"
           >
             <span className="relative z-10 font-display text-6xl font-semibold text-stone-0/90">
               {initials(doctor.name.replace(/^(Dr\.|Ms\.|Mr\.)\s*/, ""))}
             </span>
+            <Photo
+              src={doctorPortrait(doctor.id)}
+              // The arch is held square (h-80 max-w-80) to match the source
+              // portrait, so the crop stays gentle instead of zooming to fill.
+              sizes="320px"
+              priority
+            />
           </GradientArt>
 
           <div className="mt-6 space-y-4 rounded-xl border border-border bg-surface p-5">

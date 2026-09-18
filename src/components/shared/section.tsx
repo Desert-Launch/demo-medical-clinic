@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
 
+import { Reveal } from "@/components/shared/reveal";
 import { cn } from "@/lib/utils";
 
-/** Section opener: eyebrow, heading, optional lead and a trailing action. */
+/** Section opener: eyebrow, heading, optional lead and a trailing action.
+ *  Reveals as one block on first sight — the heading and its action belong to
+ *  the same thought, so they arrive together and the cards below stagger. */
 export function SectionHeading({
   eyebrow,
   title,
@@ -19,7 +22,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <div
+    <Reveal
       className={cn(
         "flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between",
         align === "center" && "sm:flex-col sm:items-center",
@@ -38,6 +41,6 @@ export function SectionHeading({
         ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
-    </div>
+    </Reveal>
   );
 }

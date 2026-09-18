@@ -1,7 +1,9 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 
+import { transitions } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export const bookingSteps = [
@@ -20,6 +22,8 @@ export function WizardStepper({
   /** Only reached steps are selectable; undefined disables the shortcut. */
   onStepSelect?: (step: number) => void;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <nav aria-label="Booking progress">
       <ol className="flex items-center gap-1.5 sm:gap-2">
@@ -32,21 +36,31 @@ export function WizardStepper({
             <>
               <span
                 className={cn(
-                  "flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
+                  "relative flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
                   active && "bg-lapis-700 text-stone-0",
                   done && "bg-lapis-100 text-lapis-800",
                   !active && !done && "bg-stone-200 text-stone-500",
                 )}
               >
                 {done ? (
-                  <Check aria-hidden="true" className="size-3.5" />
+                  // The tick is the only place the overshoot curve is used
+                  // outside the confirmation — a step closing should feel
+                  // like something latching.
+                  <motion.span
+                    initial={reduceMotion ? false : { scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={transitions.emphasis}
+                    className="flex items-center justify-center"
+                  >
+                    <Check aria-hidden="true" className="size-3.5" />
+                  </motion.span>
                 ) : (
                   step.id
                 )}
               </span>
               <span
                 className={cn(
-                  "hidden text-sm font-medium sm:inline",
+                  "hidden text-sm font-medium transition-colors sm:inline",
                   active ? "text-stone-900" : "text-stone-500",
                 )}
               >
@@ -62,7 +76,7 @@ export function WizardStepper({
                   type="button"
                   onClick={() => onStepSelect(step.id)}
                   aria-label={`Back to step ${step.id}: ${step.label}`}
-                  className="flex items-center gap-2 rounded-full transition-opacity hover:opacity-80"
+                  className="press flex cursor-pointer items-center gap-2 rounded-full transition-opacity hover:opacity-80"
                 >
                   {content}
                 </button>
@@ -75,13 +89,21 @@ export function WizardStepper({
                 </span>
               )}
               {index < bookingSteps.length - 1 ? (
+                // The connector fills rather than switching colour, so the
+                // rail reads as progress travelling along the flow.
                 <span
                   aria-hidden="true"
-                  className={cn(
-                    "h-px flex-1 rounded-full",
-                    done ? "bg-lapis-300" : "bg-stone-200",
-                  )}
-                />
+                  className="relative h-px flex-1 overflow-hidden rounded-full bg-stone-200"
+                >
+                  <motion.span
+                    className="absolute inset-0 origin-left rounded-full bg-lapis-300"
+                    initial={false}
+                    animate={{ scaleX: done ? 1 : 0 }}
+                    transition={
+                      reduceMotion ? { duration: 0 } : transitions.panel
+                    }
+                  />
+                </span>
               ) : null}
             </li>
           );

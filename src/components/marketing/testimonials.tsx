@@ -1,6 +1,7 @@
 import { Quote } from "lucide-react";
 
 import { PageContainer } from "@/components/layout/page-container";
+import { RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section";
 
 /** Fictional patients, written as people talk rather than as marketing copy. */
@@ -35,29 +36,35 @@ export function Testimonials() {
           lead="Collected at discharge, published unedited apart from surnames."
         />
 
-        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
+        <RevealGroup
+          as="ul"
+          className="mt-12 grid gap-6 lg:grid-cols-3"
+          delay={0.05}
+        >
           {testimonials.map((item) => (
-            <li
-              key={item.name}
-              className="flex flex-col rounded-xl border border-border bg-surface p-7 shadow-xs"
-            >
-              <Quote
-                aria-hidden="true"
-                className="size-6 text-saffron-500"
-                strokeWidth={2.25}
-              />
-              <blockquote className="mt-5 flex-1 text-base leading-relaxed text-stone-700">
-                {item.quote}
-              </blockquote>
-              <div className="mt-6 border-t border-border pt-4">
-                <p className="text-sm font-semibold text-stone-900">
-                  {item.name}
-                </p>
-                <p className="text-sm text-stone-500">{item.context}</p>
+            <RevealItem as="li" key={item.name} className="h-full">
+              {/* The lift lives on an inner element: `RevealItem` owns this
+                  node's transform while it animates in, and two owners of one
+                  transform means neither works. */}
+              <div className="lift flex h-full flex-col rounded-xl border border-border bg-surface p-7 shadow-xs">
+                <Quote
+                  aria-hidden="true"
+                  className="size-6 text-saffron-500"
+                  strokeWidth={2.25}
+                />
+                <blockquote className="mt-5 flex-1 text-base leading-relaxed text-stone-700">
+                  {item.quote}
+                </blockquote>
+                <div className="mt-6 border-t border-border pt-4">
+                  <p className="text-sm font-semibold text-stone-900">
+                    {item.name}
+                  </p>
+                  <p className="text-sm text-stone-500">{item.context}</p>
+                </div>
               </div>
-            </li>
+            </RevealItem>
           ))}
-        </ul>
+        </RevealGroup>
       </PageContainer>
     </section>
   );

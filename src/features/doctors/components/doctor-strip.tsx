@@ -3,9 +3,12 @@
 import Link from "next/link";
 
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
+import { RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDoctors } from "@/features/doctors";
 import { useSpecialties } from "@/features/specialties";
+import { doctorPortrait } from "@/lib/images";
 import { initials } from "@/lib/utils";
 
 /** A short row of doctors for the home page — the directory does the real work. */
@@ -28,12 +31,12 @@ export function DoctorStrip({ limit = 6 }: { limit?: number }) {
   );
 
   return (
-    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <RevealGroup as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {doctors.slice(0, limit).map((doctor) => (
-        <li key={doctor.id}>
+        <RevealItem as="li" key={doctor.id} className="h-full">
           <Link
             href={`/doctors/${doctor.id}`}
-            className="flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-lapis-300 hover:bg-lapis-50/40"
+            className="lift-sm flex h-full items-center gap-4 rounded-xl border border-border bg-surface p-4 hover:bg-lapis-50/40"
           >
             <GradientArt
               variant={doctor.portrait}
@@ -43,6 +46,7 @@ export function DoctorStrip({ limit = 6 }: { limit?: number }) {
               <span className="relative z-10 font-display text-sm font-semibold text-stone-0">
                 {initials(doctor.name.replace(/^(Dr\.|Ms\.|Mr\.)\s*/, ""))}
               </span>
+              <Photo src={doctorPortrait(doctor.id)} sizes="56px" />
             </GradientArt>
             <div className="min-w-0">
               <p className="truncate font-semibold text-stone-900">
@@ -53,8 +57,8 @@ export function DoctorStrip({ limit = 6 }: { limit?: number }) {
               </p>
             </div>
           </Link>
-        </li>
+        </RevealItem>
       ))}
-    </ul>
+    </RevealGroup>
   );
 }

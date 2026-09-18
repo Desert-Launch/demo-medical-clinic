@@ -3,6 +3,7 @@
 import { Languages, Sparkles } from "lucide-react";
 
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FIRST_AVAILABLE } from "@/features/booking/schema";
 import { useFirstAvailable } from "@/features/booking";
@@ -11,6 +12,7 @@ import {
   NextAvailable,
 } from "@/features/doctors/components/next-available";
 import { useDoctors } from "@/features/doctors";
+import { doctorPortrait } from "@/lib/images";
 import { cn, initials } from "@/lib/utils";
 
 export function StepDoctor({
@@ -99,6 +101,7 @@ export function StepDoctor({
                         doctor.name.replace(/^(Dr\.|Ms\.|Mr\.)\s*/, ""),
                       )}
                     </span>
+                    <Photo src={doctorPortrait(doctor.id)} sizes="56px" />
                   </GradientArt>
 
                   <span className="min-w-0 flex-1">

@@ -5,8 +5,10 @@ import { PageContainer } from "@/components/layout/page-container";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { MarketingPageHeader } from "@/components/marketing/page-header";
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
 import { SectionHeading } from "@/components/shared/section";
 import { StaticMap } from "@/components/shared/static-map";
+import { scenes } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -65,7 +67,12 @@ export default function AboutPage() {
           <GradientArt
             variant={2}
             className="arch mx-auto h-96 w-full max-w-sm"
-          />
+          >
+            <Photo
+              src={scenes.clinicLobby}
+              sizes="(min-width: 1024px) 24rem, 100vw"
+            />
+          </GradientArt>
         </div>
       </PageContainer>
 

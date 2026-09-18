@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Phone } from "lucide-react";
 
 import { PageContainer } from "@/components/layout/page-container";
+import { Reveal } from "@/components/shared/reveal";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
 
@@ -19,11 +20,11 @@ export function CtaBand({
         className="khatim-field pointer-events-none absolute inset-0 opacity-[0.06]"
       />
       <PageContainer className="relative flex flex-col items-start gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <h2 className="text-3xl text-stone-0 sm:text-4xl">{title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-lapis-200">{lead}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
+        </Reveal>
+        <Reveal delay={0.12} className="flex flex-wrap items-center gap-3">
           <Button
             asChild
             size="lg"
@@ -42,7 +43,7 @@ export function CtaBand({
               {site.phone}
             </a>
           </Button>
-        </div>
+        </Reveal>
       </PageContainer>
     </section>
   );

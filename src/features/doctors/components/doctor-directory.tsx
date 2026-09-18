@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { CircleAlert, Search, UserRoundSearch } from "lucide-react";
 
 import { EmptyState } from "@/components/shared/empty-state";
+import { RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -146,15 +147,16 @@ export function DoctorDirectory({
             <p className="mb-5 text-sm text-stone-500">
               {doctors.length} doctor{doctors.length === 1 ? "" : "s"}
             </p>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {doctors.map((doctor) => (
-                <DoctorCard
-                  key={doctor.id}
-                  doctor={doctor}
-                  specialty={specialtyById.get(doctor.specialtyId)}
-                />
+                <RevealItem key={doctor.id} className="h-full">
+                  <DoctorCard
+                    doctor={doctor}
+                    specialty={specialtyById.get(doctor.specialtyId)}
+                  />
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </>
         )}
       </div>

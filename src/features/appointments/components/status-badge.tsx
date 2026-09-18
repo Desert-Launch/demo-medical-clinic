@@ -20,7 +20,9 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset",
+        // The colours cross-fade, so an optimistic status change (and its
+        // rollback) is visible as a change rather than a substitution.
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset transition-colors duration-200",
         styles[status],
         className,
       )}

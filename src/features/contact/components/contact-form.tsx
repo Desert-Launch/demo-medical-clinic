@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,7 @@ import {
 
 export function ContactForm() {
   const [receipt, setReceipt] = useState<string | null>(null);
+  const reduceMotion = useReducedMotion();
   const submit = useSubmitContactMessage();
 
   const form = useForm<ContactFormValues>({
@@ -47,11 +49,31 @@ export function ContactForm() {
 
   if (receipt) {
     return (
-      <div className="rounded-xl border border-success-100 bg-success-50 p-8">
-        <CheckCircle2
-          aria-hidden="true"
-          className="size-8 text-success-700"
-        />
+      // Silence after "Send" is what makes a form feel broken. The panel
+      // arrives with the same confirmation gesture the booking flow uses, and
+      // announces itself to a screen reader at the same moment.
+      <motion.div
+        role="status"
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-xl border border-success-100 bg-success-50 p-8"
+      >
+        <motion.span
+          initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            duration: 0.38,
+            ease: [0.34, 1.4, 0.64, 1],
+            delay: 0.06,
+          }}
+          className="inline-flex"
+        >
+          <CheckCircle2
+            aria-hidden="true"
+            className="size-8 text-success-700"
+          />
+        </motion.span>
         <h2 className="mt-4 text-2xl">Message received</h2>
         <p className="mt-3 text-stone-700">
           Your reference is{" "}
@@ -74,7 +96,7 @@ export function ContactForm() {
         >
           Send another message
         </Button>
-      </div>
+      </motion.div>
     );
   }
 

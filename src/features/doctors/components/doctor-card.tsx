@@ -2,9 +2,11 @@ import Link from "next/link";
 import { ArrowRight, Languages } from "lucide-react";
 
 import { GradientArt } from "@/components/shared/gradient-art";
+import { Photo } from "@/components/shared/photo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { NextAvailable } from "@/features/doctors/components/next-available";
+import { doctorPortrait } from "@/lib/images";
 import { initials } from "@/lib/utils";
 import type { Doctor, Specialty } from "@/types";
 
@@ -16,7 +18,7 @@ export function DoctorCard({
   specialty: Specialty | undefined;
 }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-xs">
+    <article className="lift flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-xs">
       <div className="flex gap-4 p-5">
         <GradientArt
           variant={doctor.portrait}
@@ -26,13 +28,18 @@ export function DoctorCard({
           <span className="relative z-10 font-display text-xl font-semibold text-stone-0">
             {initials(doctor.name.replace(/^(Dr\.|Ms\.|Mr\.)\s*/, ""))}
           </span>
+          <Photo
+            src={doctorPortrait(doctor.id)}
+            sizes="80px"
+            className="lift-media"
+          />
         </GradientArt>
 
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-lg">
             <Link
               href={`/doctors/${doctor.id}`}
-              className="hover:text-lapis-700"
+              className="transition-colors duration-200 hover:text-lapis-700"
             >
               {doctor.name}
             </Link>

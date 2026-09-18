@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/layout/page-container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/shared/reveal";
 import { site } from "@/lib/site";
 
 /**
@@ -9,23 +10,37 @@ export function InsuranceStrip() {
   return (
     <section className="bg-stone-0 py-14">
       <PageContainer>
-        <p className="eyebrow text-center text-stone-500">
-          Direct billing with
-        </p>
-        <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+        <Reveal>
+          <p className="eyebrow text-center text-stone-500">
+            Direct billing with
+          </p>
+        </Reveal>
+        {/* Set as type, so the names read across as one line rather than a
+            row of competing logos. They fade in left to right at the same
+            cadence as everything else on the page. */}
+        <RevealGroup
+          as="ul"
+          className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-5"
+          step={0.04}
+          delay={0.06}
+        >
           {site.insurers.map((insurer) => (
-            <li
+            <RevealItem
+              as="li"
               key={insurer}
-              className="font-display text-lg font-medium tracking-[-0.01em] text-stone-400"
+              distance={10}
+              className="font-display text-lg font-medium tracking-[-0.01em] text-stone-400 transition-colors duration-200 hover:text-stone-600"
             >
               {insurer}
-            </li>
+            </RevealItem>
           ))}
-        </ul>
-        <p className="mt-7 text-center text-sm text-stone-500">
-          Not on the list? Pay at the desk and we will issue a claimable
-          invoice the same day.
-        </p>
+        </RevealGroup>
+        <Reveal delay={0.1}>
+          <p className="mt-7 text-center text-sm text-stone-500">
+            Not on the list? Pay at the desk and we will issue a claimable
+            invoice the same day.
+          </p>
+        </Reveal>
       </PageContainer>
     </section>
   );

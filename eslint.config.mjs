@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      // Vendored Claude Code skills — third-party tooling, not project source.
+      ".claude/**",
     ],
   },
 ];
