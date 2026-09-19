@@ -208,7 +208,7 @@ export interface AvailabilityQuery {
 /**
  * Slots for one doctor over a window of days. Days the doctor does not work
  * come back with an empty `slots` array rather than being dropped, so the
- * picker can show "Dr. Al Shamsi is not in on Fridays" instead of a gap.
+ * picker can show "Doctor 8 is not in on Fridays" instead of a gap.
  */
 export function listAvailability(query: AvailabilityQuery): DaySlots[] {
   const doctor = database.doctors.find((item) => item.id === query.doctorId);

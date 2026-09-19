@@ -90,7 +90,7 @@ export function SiteHeader() {
             </span>
           </span>
           <a
-            href={`tel:${site.phone.replace(/\s/g, "")}`}
+            href={site.phoneHref}
             className="flex items-center gap-2 text-lapis-100 transition-colors hover:text-stone-0"
           >
             <Phone aria-hidden="true" className="size-3.5" />
@@ -201,7 +201,7 @@ export function SiteHeader() {
                     </Link>
                   </Button>
                   <a
-                    href={`tel:${site.phone.replace(/\s/g, "")}`}
+                    href={site.phoneHref}
                     className="mt-4 flex items-center gap-2 text-sm text-stone-600"
                   >
                     <Phone aria-hidden="true" className="size-4" />

@@ -58,14 +58,14 @@ export function Logo({
             tone === "inverse" ? "text-stone-0" : "text-stone-900",
           )}
         >
-          {site.shortName}
+          Demo
           <span
             className={cn(
               "ml-1.5 font-medium",
               tone === "inverse" ? "text-lapis-200" : "text-lapis-600",
             )}
           >
-            Medical Center
+            Medical Clinic
           </span>
         </span>
         {showArabic ? (

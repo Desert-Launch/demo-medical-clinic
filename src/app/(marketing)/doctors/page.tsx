@@ -10,7 +10,7 @@ import { DoctorDirectoryPanel } from "@/features/doctors/components/doctor-direc
 export const metadata: Metadata = {
   title: "Doctors",
   description:
-    "Consultants and specialists at Andalus Medical Center, filtered by department and language spoken.",
+    "Consultants and specialists at the Demo Medical Clinic, filtered by department and language spoken.",
 };
 
 export default function DoctorsPage() {

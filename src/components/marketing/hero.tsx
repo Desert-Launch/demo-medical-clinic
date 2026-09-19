@@ -28,7 +28,7 @@ export function Hero() {
         <RevealGroup>
           <RevealItem>
             <p className="eyebrow text-lapis-600">
-              Multi-specialty clinic · Al Bateen, Abu Dhabi
+              Multi-specialty clinic · Abu Dhabi
             </p>
           </RevealItem>
 

@@ -38,7 +38,7 @@ export function CtaBand({
             variant="outline"
             className="border-lapis-700 bg-transparent text-stone-0 hover:bg-lapis-900 hover:text-stone-0"
           >
-            <a href={`tel:${site.phone.replace(/\s/g, "")}`}>
+            <a href={site.phoneHref}>
               <Phone aria-hidden="true" className="size-4" />
               {site.phone}
             </a>

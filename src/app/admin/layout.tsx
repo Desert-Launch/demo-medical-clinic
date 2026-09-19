@@ -5,7 +5,7 @@ import { AdminSidebar } from "@/components/layout/admin-sidebar";
 
 export const metadata: Metadata = {
   title: "Clinic dashboard",
-  description: "Demo staff view for Andalus Medical Center.",
+  description: "Demo staff view for the Demo Medical Clinic.",
 };
 
 export default function AdminLayout({ children }: { children: ReactNode }) {

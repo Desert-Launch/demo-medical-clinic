@@ -3,8 +3,11 @@ import { z } from "zod";
 
 import { patientGenders } from "@/types";
 
-/** UAE mobile or landline, with or without spaces: +971 50 123 4567, 0501234567. */
-export const uaePhonePattern = /^(\+?971|0)[\s-]?\d{1,2}[\s-]?\d{3}[\s-]?\d{4}$/;
+/** UAE mobile or landline, with or without spaces: +971 50 123 4567, 0501234567.
+ *  The last four may be `x` placeholders — every seeded number ends in "xxx" so
+ *  the demo can never dial a real line, and editing such a record must still
+ *  validate. */
+export const uaePhonePattern = /^(\+?971|0)[\s-]?\d{1,2}[\s-]?\d{3}[\s-]?[\dx]{4}$/i;
 
 /** The value the insurer select uses for self-paying patients — a Radix select
  *  item cannot hold an empty string or null. */

@@ -14,7 +14,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "How Andalus Medical Center works: six departments, one record, and a front desk that confirms your insurance before the appointment.",
+    "How the Demo Medical Clinic works: six departments, one record, and a front desk that confirms your insurance before the appointment.",
 };
 
 const principles = [
@@ -38,7 +38,7 @@ export default function AboutPage() {
       <MarketingPageHeader
         eyebrow="About"
         title="A clinic organised the way patients actually arrive"
-        lead="Andalus opened in Al Bateen in 2016 with three departments and a simple rule: nobody should have to work out which specialist they need before they can be seen."
+        lead="The clinic opened in Abu Dhabi in 2016 with three departments and a simple rule: nobody should have to work out which specialist they need before they can be seen."
       />
 
       <PageContainer className="py-16">

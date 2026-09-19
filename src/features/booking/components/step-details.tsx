@@ -262,7 +262,7 @@ export function StepDetails({
               </FormControl>
               <div className="space-y-1">
                 <FormLabel className="font-normal leading-relaxed">
-                  I agree to Andalus holding this appointment and contacting me
+                  I agree to the clinic holding this appointment and contacting me
                   about it by phone or email.
                 </FormLabel>
                 <FormMessage />

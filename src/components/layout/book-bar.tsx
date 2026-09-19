@@ -81,7 +81,7 @@ export function BookBar() {
                 className="size-12 shrink-0 p-0"
               >
                 <a
-                  href={`tel:${site.phone.replace(/\s/g, "")}`}
+                  href={site.phoneHref}
                   aria-label={`Call the clinic on ${site.phone}`}
                 >
                   <Phone aria-hidden="true" className="size-5" />

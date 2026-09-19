@@ -68,7 +68,7 @@ export function DoctorDirectory({
               id="doctor-search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="e.g. Al Shamsi"
+              placeholder="e.g. Doctor 8"
               className="pl-9"
             />
           </div>

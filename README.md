@@ -1,4 +1,4 @@
-# Andalus Medical Center
+# Demo Medical Clinic
 
 A frontend-only demo of a multi-specialty outpatient clinic in Abu Dhabi: a
 public marketing site, a five-step booking flow, and a staff dashboard with full

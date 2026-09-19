@@ -1,5 +1,5 @@
 /* =============================================================================
-   Andalus Medical Center — design tokens
+   Demo Medical Clinic — design tokens
    -----------------------------------------------------------------------------
    Single source of truth for colour, type, space, radii, shadow and motion.
    Nothing downstream may hardcode a hex; components reference these variables

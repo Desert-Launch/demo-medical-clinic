@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Call, message or visit Andalus Medical Center in Al Bateen, Abu Dhabi.",
+    "Call, message or visit the Demo Medical Clinic in Abu Dhabi.",
 };
 
 export default function ContactPage() {
@@ -38,7 +38,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm text-stone-500">Front desk</p>
                     <a
-                      href={`tel:${site.phone.replace(/\s/g, "")}`}
+                      href={site.phoneHref}
                       className="font-medium text-stone-900 underline-offset-4 hover:underline"
                     >
                       {site.phone}
@@ -115,7 +115,7 @@ export default function ContactPage() {
 
             <p className="rounded-xl border border-danger-100 bg-danger-50 p-5 text-sm leading-relaxed text-stone-700">
               <strong className="font-semibold">In an emergency,</strong> call
-              998 or go to your nearest hospital emergency department. Andalus is
+              998 or go to your nearest hospital emergency department. This clinic is
               an outpatient clinic and does not run a 24-hour service.
             </p>
           </aside>

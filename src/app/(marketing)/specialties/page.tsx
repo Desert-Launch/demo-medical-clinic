@@ -8,7 +8,7 @@ import { SpecialtyGrid } from "@/features/specialties/components/specialty-grid"
 export const metadata: Metadata = {
   title: "Specialties",
   description:
-    "Family medicine, dermatology, paediatrics, cardiology, ENT and physiotherapy at Andalus Medical Center in Abu Dhabi.",
+    "Family medicine, dermatology, paediatrics, cardiology, ENT and physiotherapy at the Demo Medical Clinic in Abu Dhabi.",
 };
 
 export default function SpecialtiesPage() {

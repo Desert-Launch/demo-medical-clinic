@@ -9,19 +9,19 @@ const testimonials = [
   {
     quote:
       "My son saw paediatrics at nine and had his hearing test with ENT before eleven. Two departments, one visit, one bill.",
-    name: "Mariam A.",
+    name: "Patient 1",
     context: "Paediatrics and ENT",
   },
   {
     quote:
-      "Dr. Al Shamsi did the echo himself and talked me through it on the screen. I left knowing what was wrong, not waiting a week to find out.",
-    name: "Ziad B.",
+      "The cardiologist did the echo in the room and talked me through it on the screen. I left knowing what was wrong, not waiting a week to find out.",
+    name: "Patient 2",
     context: "Cardiology",
   },
   {
     quote:
       "Four months of acne treatment with a review date every time. Nobody sold me anything I did not need.",
-    name: "Shamma F.",
+    name: "Patient 3",
     context: "Dermatology",
   },
 ];
@@ -33,7 +33,7 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Patients"
           title="What people say after the visit"
-          lead="Collected at discharge, published unedited apart from surnames."
+          lead="Sample quotes for the demo — no real patients."
         />
 
         <RevealGroup

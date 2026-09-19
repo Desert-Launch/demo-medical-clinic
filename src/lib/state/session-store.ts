@@ -18,23 +18,23 @@ export interface StaffMember {
 export const staffDirectory: StaffMember[] = [
   {
     id: "stf_reception",
-    name: "Huda Al Ali",
+    name: "Receptionist 1",
     role: "Front desk lead",
   },
   {
     id: "stf_manager",
-    name: "Peter Ndiaye",
+    name: "Manager 1",
     role: "Clinic manager",
   },
   {
     id: "stf_mansoori",
-    name: "Dr. Layla Al Mansoori",
+    name: "Doctor 1",
     role: "Consultant, family medicine",
     doctorId: "doc_almansoori",
   },
   {
     id: "stf_alshamsi",
-    name: "Dr. Omar Al Shamsi",
+    name: "Doctor 8",
     role: "Consultant, cardiology",
     doctorId: "doc_alshamsi",
   },

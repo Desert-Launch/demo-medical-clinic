@@ -8,9 +8,9 @@ export type DemoLang = "en" | "ar";
 export const DEMO = {
   /** Short id the landing site uses; also the subdomain and utm_campaign. */
   slug: "medical",
-  name: "Andalus Medical Center",
+  name: "Demo Medical Clinic",
   /** Latin-only name for the share-preview image, whose default font has no Arabic. */
-  latinName: "Andalus Medical Center",
+  latinName: "Demo Medical Clinic",
   url: "https://medical.demos.desertlaunch.dev",
   /** Language of the bar and the metadata. Typed as the union so the shared
    *  code that handles both languages stays identical in every demo. */

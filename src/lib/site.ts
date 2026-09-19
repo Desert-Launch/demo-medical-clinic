@@ -4,18 +4,21 @@
  */
 
 export const site = {
-  name: "Andalus Medical Center",
-  nameArabic: "مركز الأندلس الطبي",
-  shortName: "Andalus",
+  name: "Demo Medical Clinic",
+  nameArabic: "عيادة طبية تجريبية",
+  shortName: "Demo Clinic",
   tagline: "Six specialties, one appointment.",
   description:
     "A multi-specialty outpatient clinic in Abu Dhabi. Book family medicine, dermatology, paediatrics, cardiology, ENT and physiotherapy in one place.",
-  phone: "+971 2 555 0142",
-  whatsapp: "+971 50 555 0142",
-  email: "hello@andalusmedical.ae",
+  // Deliberately undialable: a demo must never ring a real line.
+  phone: "+971 2 555 0xxx",
+  /** Where a "call us" control goes: the number above must never dial. */
+  phoneHref: "/contact",
+  whatsapp: "+971 50 555 0xxx",
+  email: "hello@example.com",
   address: {
-    line1: "Al Bateen Clinic Tower, Level 3",
-    line2: "Bainunah Street, Al Bateen",
+    line1: "Demo Tower, Level 3",
+    line2: "1 Demo Street, Demo District",
     city: "Abu Dhabi",
     country: "United Arab Emirates",
   },
@@ -34,9 +37,10 @@ export const site = {
     "Sahel Insurance",
     "Meridian Global Health",
   ],
+  // Generic on purpose: a fictional clinic must not claim a real regulator.
   accreditations: [
-    { label: "DOH licensed", note: "Department of Health – Abu Dhabi" },
-    { label: "JCI-style quality programme", note: "Audited twice yearly" },
+    { label: "Licensed clinic", note: "Demo credential" },
+    { label: "Quality programme", note: "Audited twice yearly" },
     { label: "Paediatric safety certified", note: "Renewed 2025" },
   ],
 } as const;

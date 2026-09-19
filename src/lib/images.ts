@@ -26,26 +26,11 @@
 /** Consistent, neutral studio portraits. Indices are valid for 0–78. */
 const PORTRAIT_HOST = "https://xsgames.co/randomusers/assets/avatars";
 
-/**
- * One explicitly chosen portrait per doctor, so the directory stays stable
- * across reloads and no two doctors share a face. Mapped by hand rather than
- * derived from the name — we are casting fictional personas, not inferring
- * anything from a string.
- */
-const doctorPortraits: Record<string, string> = {
-  doc_almansoori: "female/45", // Dr. Layla Al Mansoori — family medicine
-  doc_menon: "male/52", // Dr. Rajesh Menon — family medicine
-  doc_haddad_f: "female/21", // Dr. Farah Haddad — family medicine
-  doc_kassem: "female/60", // Dr. Hana Kassem — dermatology
-  doc_duarte: "female/32", // Dr. Sofia Duarte — dermatology
-  doc_alhosani: "female/68", // Dr. Noura Al Hosani — paediatrics
-  doc_reyes: "male/40", // Dr. Marco Reyes — paediatrics
-  doc_alshamsi: "male/21", // Dr. Omar Al Shamsi — cardiology
-  doc_anand: "female/52", // Dr. Priya Anand — cardiology
-  doc_baig: "male/68", // Dr. Yusuf Baig — ENT
-  doc_rahman: "female/40", // Dr. Aisha Rahman — ENT
-  doc_haddad_a: "female/75", // Amal Haddad — physiotherapy
-};
+/** No portraits: the doctors are "Doctor 1", "Doctor 2"… and a stock face of
+ *  a real person under a numbered name is exactly what a demo must not show.
+ *  Every consumer falls back to the initials art. The map stays so a real
+ *  build can put cleared photography back in one place. */
+const doctorPortraits: Record<string, string> = {};
 
 /**
  * A doctor's portrait, or `null` for a doctor added at runtime through admin.

@@ -17,7 +17,7 @@ const columns = [
   {
     heading: "Clinic",
     links: [
-      { href: "/about", label: "About Andalus" },
+      { href: "/about", label: "About the clinic" },
       { href: "/contact", label: "Contact and directions" },
       { href: "/admin", label: "Clinic dashboard" },
     ],
@@ -50,7 +50,7 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-lapis-200">
-              A multi-specialty outpatient clinic in Al Bateen. Six departments
+              A multi-specialty outpatient clinic in Abu Dhabi. Six departments
               under one roof, one appointment desk, one patient record.
             </p>
           </div>
@@ -89,7 +89,7 @@ export function SiteFooter() {
               <p className="flex gap-2.5">
                 <Phone aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
                 <a
-                  href={`tel:${site.phone.replace(/\s/g, "")}`}
+                  href={site.phoneHref}
                   className="transition-colors hover:text-stone-0"
                 >
                   {site.phone}
