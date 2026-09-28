@@ -34,4 +34,29 @@ export const DEMO = {
       "Filters by status, department, doctor and date range"
   ],
   repo: "https://github.com/Desert-Launch/demo-medical-clinic",
+  /** What the demo is, in the words its buyer searches with. The share-preview
+   *  title and the heading of llms.txt. In the demo's own language. */
+  headline: "Multi-specialty clinic website with online booking",
+  /** Who the demo is for: the owner of this kind of business, not the
+   *  business's customers. Emitted as `audience` in the JSON-LD. */
+  audience: "Medical clinics and multi-specialty medical centres",
+  /** The Desert Launch page that owns this vertical in search and explains
+   *  what a real build adds. The bar's brand link and the JSON-LD point here,
+   *  so the demo hands its visitors and its context to one indexed page. */
+  industry: {
+    url: "https://www.desertlaunch.dev/industries/clinics/",
+    name: "Clinic and dental websites by Desert Launch",
+  },
+  /** The bar's call to action, in the demo's language. */
+  cta: "Want this for your clinic?",
+  /** Routes worth opening, listed in llms.txt. */
+  pages: [
+    { path: "/", label: "home" },
+    { path: "/specialties", label: "departments" },
+    { path: "/doctors", label: "doctor profiles" },
+    { path: "/book", label: "the five-step booking flow" },
+    { path: "/admin", label: "staff dashboard" },
+    { path: "/admin/appointments", label: "appointments with filters" },
+    { path: "/admin/patients", label: "patient files" },
+  ],
 } as const;
