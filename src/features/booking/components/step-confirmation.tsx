@@ -120,8 +120,8 @@ export function StepConfirmation({
 
       <RevealItem>
         <p className="mt-6 text-sm text-stone-500">
-          This is a demo — no email or SMS was sent. The appointment is held in
-          memory and resets when you refresh the page.
+          This is a demo — no email or SMS was sent. The appointment is saved
+          in this browser only, for today.
         </p>
       </RevealItem>
     </RevealGroup>

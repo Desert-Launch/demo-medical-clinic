@@ -37,7 +37,7 @@ export function GET() {
     "",
     `- Kind of business portrayed: ${DEMO.kind}, set in ${DEMO.city}. The business, its people, prices, address and phone numbers are invented.`,
     `- Interface language${DEMO.languages.length > 1 ? "s" : ""}: ${languages}.`,
-    "- Everything runs in the browser against an in-memory store. There is no backend, no database, no accounts and no payments; nothing entered is sent anywhere, and a refresh resets the data.",
+    "- Everything runs in the browser. There is no backend, no database, no accounts and no payments; nothing entered is sent anywhere. What a visitor does is kept in their own browser's local storage for the day, so a booking or an order made on the site is waiting on the dashboard after a refresh or in another tab.",
     `- The demo is excluded from search engines (noindex) because it is not a real business. Its indexed description is the industry page above.`,
     "",
     "## What works",

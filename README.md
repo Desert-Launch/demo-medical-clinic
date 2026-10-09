@@ -37,15 +37,28 @@ specialty, doctor, patient and appointment.
 - `db.ts` is the whole read/write surface: filtered lists, joins, slot
   availability, CRUD, and the dashboard aggregates.
 - `index.ts` is the only entry point anything outside `lib/store` may import.
+- `persist.ts` — saves the store to `localStorage` after every write and loads
+  it back when the app starts, so a booking made on the site is still on the
+  dashboard after a refresh or in a new tab. A dashboard open in another tab
+  refetches as soon as the site writes (the providers listen for it). A saved
+  copy is kept for the day it was seeded on; a new day, or a copy whose
+  `version` no longer matches the one in `db.ts`, starts from a fresh seed.
+  **Bump that `version` whenever the shape of the stored data changes.**
+  Identical in every demo.
 
-Writes persist **for the browser session only**. A hard refresh re-seeds, because
-the store is plain module state — no `localStorage`, no network.
+Nothing goes over the network: the data stays in the visitor's own browser.
 
 ### Resetting the demo data
 
 Bottom of the admin sidebar → **Reset demo data**. It puts the store back to its
-seeded state and drops every cached query. Refreshing the page does the same
-thing.
+seeded state, overwrites the saved copy and drops every cached query. A refresh
+no longer resets anything.
+
+### Moving between the site and the dashboard
+
+The Desert Launch bar at the top of every page carries the switch between the
+two sides: **Open the dashboard** on the site, **Back to the site** on the
+dashboard (`src/components/layout/demo-side-switch.tsx`).
 
 ## Architecture
 

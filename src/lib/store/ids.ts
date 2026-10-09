@@ -1,4 +1,4 @@
-/** Identifier helpers for the in-memory store. */
+/** Identifier helpers for the demo store. */
 
 export function createId(prefix: string): string {
   return `${prefix}_${crypto.randomUUID().slice(0, 12)}`;

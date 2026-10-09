@@ -17,6 +17,7 @@ import {
   slotFitsShift,
 } from "@/lib/scheduling";
 import { createId, createReference } from "@/lib/store/ids";
+import { persistedStore } from "@/lib/store/persist";
 import { buildSeedData } from "@/lib/store/seed";
 import {
   blockingStatuses,
@@ -37,8 +38,9 @@ import {
 } from "@/types";
 
 /**
- * The demo "backend": a module-level singleton holding every record. No React,
- * no persistence — a hard refresh re-seeds. Everything in the app reads and
+ * The demo "backend": a module-level singleton holding every record. No React.
+ * Each write is saved to this browser by `persist.ts`, so a refresh or a new
+ * tab picks up where the visitor left off. Everything in the app reads and
  * writes through the functions below and never touches `database` directly.
  */
 interface Database {
@@ -48,7 +50,29 @@ interface Database {
   appointments: Appointment[];
 }
 
-let database: Database = buildSeedData();
+const persisted = persistedStore<Database>({
+  version: 1,
+  seed: buildSeedData,
+  isValid: (data) => {
+    const db = data as Partial<Database> | null;
+    return (
+      Array.isArray(db?.specialties) &&
+      Array.isArray(db?.doctors) &&
+      Array.isArray(db?.patients) &&
+      Array.isArray(db?.appointments)
+    );
+  },
+});
+
+let database: Database = persisted.load();
+persisted.onExternalChange((data) => {
+  database = data;
+});
+
+/** Every write ends here. */
+function commit(): void {
+  persisted.save(database);
+}
 
 /** Thrown for rule violations the UI is expected to surface to the user. */
 export class StoreError extends Error {
@@ -59,7 +83,7 @@ export class StoreError extends Error {
 }
 
 export function resetDatabase(): void {
-  database = buildSeedData();
+  database = persisted.reset();
 }
 
 /* -------------------------------------------------------------------------- */
@@ -382,6 +406,7 @@ export function createPatient(input: PatientInput): PatientWithHistory {
     createdAt: new Date().toISOString(),
   };
   database.patients = [...database.patients, patient];
+  commit();
   return withHistory(patient);
 }
 
@@ -409,6 +434,7 @@ export function updatePatient(
   database.patients = database.patients.map((item) =>
     item.id === id ? updated : item,
   );
+  commit();
   return withHistory(updated);
 }
 
@@ -432,6 +458,7 @@ export function deletePatient(id: string): void {
   database.appointments = database.appointments.filter(
     (appointment) => appointment.patientId !== id,
   );
+  commit();
 }
 
 /** Age in whole years, or null when the date of birth is unusable. */
@@ -599,6 +626,7 @@ export function createAppointment(
   };
 
   database.appointments = [...database.appointments, appointment];
+  commit();
   const hydrated = hydrate(appointment);
   if (!hydrated) throw new StoreError("The booking could not be saved.");
   return hydrated;
@@ -661,6 +689,7 @@ export function updateAppointment(
   database.appointments = database.appointments.map((item) =>
     item.id === id ? updated : item,
   );
+  commit();
 
   const hydrated = hydrate(updated);
   if (!hydrated) throw new StoreError("The appointment could not be saved.");
@@ -671,6 +700,7 @@ export function deleteAppointment(id: string): void {
   const exists = database.appointments.some((item) => item.id === id);
   if (!exists) throw new StoreError("That appointment no longer exists.");
   database.appointments = database.appointments.filter((item) => item.id !== id);
+  commit();
 }
 
 /* -------------------------------------------------------------------------- */

@@ -1,9 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
 
 /**
- * The store lives in memory, so cached data can never go stale behind our back
- * — a short staleTime keeps skeletons visible on first paint without refetching
- * on every window focus during a demo walkthrough.
+ * The store lives in this browser, and a write from another tab invalidates
+ * every query (see `Providers`), so cached data never goes stale behind our
+ * back — a short staleTime keeps skeletons visible on first paint without
+ * refetching on every window focus during a demo walkthrough.
  */
 export function createQueryClient(): QueryClient {
   return new QueryClient({

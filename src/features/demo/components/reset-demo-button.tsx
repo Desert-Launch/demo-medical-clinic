@@ -27,7 +27,7 @@ export function ResetDemoButton() {
         onOpenChange={setOpen}
         tone="default"
         title="Reset the demo data?"
-        description="Every appointment and patient goes back to the seeded set. Anything added during this session is discarded."
+        description="Every appointment and patient goes back to the seeded set. Anything added in this browser is discarded."
         confirmLabel="Reset data"
         cancelLabel="Leave it"
         pending={reset.isPending}

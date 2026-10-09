@@ -2,6 +2,7 @@
 
 import { PageContainer } from "@/components/layout/page-container";
 import { Button } from "@/components/ui/button";
+import { clearSavedData } from "@/lib/store/persist";
 
 export default function GlobalError({
   error,
@@ -19,16 +20,26 @@ export default function GlobalError({
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-stone-600">
           Nothing you entered was sent anywhere. Try again — and if it keeps
-          happening, refresh the page to reset the demo data.
+          happening, start the demo again from fresh sample data.
         </p>
         {error.message ? (
           <p className="mt-5 max-w-xl rounded-lg border border-border bg-surface p-4 font-mono text-sm text-stone-600">
             {error.message}
           </p>
         ) : null}
-        <div className="mt-9">
+        <div className="mt-9 flex flex-wrap gap-3">
           <Button size="lg" onClick={reset}>
             Try again
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => {
+              clearSavedData();
+              window.location.assign("/");
+            }}
+          >
+            Start the demo again
           </Button>
         </div>
       </PageContainer>

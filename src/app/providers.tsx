@@ -1,16 +1,21 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Tooltip as TooltipPrimitive } from "radix-ui";
 
 import { createQueryClient } from "@/lib/query-client";
+import { onStoreChange } from "@/lib/store/persist";
 import { Toaster } from "@/components/ui/sonner";
 
 export function Providers({ children }: { children: ReactNode }) {
   // One client per browser session, created lazily so it is never shared
   // across requests during SSR.
   const [queryClient] = useState(createQueryClient);
+
+  // A booking made in another tab lands in this one's store; refetch so an
+  // open dashboard shows it without a refresh.
+  useEffect(() => onStoreChange(() => void queryClient.invalidateQueries()), [queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
